@@ -1,0 +1,47 @@
+{
+  "workflows": [
+    {"flowId": "id-delete",
+	  "startNode" : "TestJob",
+      "flowDescription": "Testing workflow 1",
+      "flowNodes": [
+        {
+          "type": "PROCESS",
+          "jobName": "TestJob",
+          "nodeDescription": "Perform Task A",
+          "normalExit": "TestJob2",
+		  "position":"START"
+        },
+        {
+          "type": "DECISION",
+          "jobName": "TestJob2",
+          "nodeDescription": "Perform Task B",
+		  "decisionTask" : "DecisionA",
+          "conditionalTrue": "TestJob3",
+          "conditionalFalse": "TestJob4",
+		  "position":"MIDDLE"
+        },
+        {
+          "type": "PROCESS",
+          "jobName": "TestJob3",
+          "nodeDescription": "Perform Task C",
+          "normalExit": "TestJob5",
+		  "position":"MIDDLE"
+        },
+        {
+          "type": "PROCESS",
+          "jobName": "TestJob4",
+          "nodeDescription": "Perform Task D",
+          "normalExit": "TestJob5",
+		  "position":"MIDDLE"
+        }
+        ,
+        {
+          "type": "PROCESS",
+          "jobName": "TestJob5",
+          "nodeDescription": "Perform Task D",
+		  "position":"END"
+         }
+      ]
+    }
+  ]
+}

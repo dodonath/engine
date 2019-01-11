@@ -1,19 +1,23 @@
 package com.synthesis.ruleengine.workflow.engine.config;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class WorkflowNode {
 	
 	private WorkflowAction action;
 	
-	private NodePosition nodePosition;
-	
 	private NodeType type;
 	
 	private String nodeId;
 	
-	private Map<ExitType,WorkflowNode> nextNodes = new HashMap<>(ExitType.values().length);
+	private String nodeDescription;
+	
+	private NodePosition position;
+	
+	private Map<ExitType,String> nextNodes = new EnumMap<>(ExitType.class);
+	
+	private DecisionAction decisionTask;
 
 	public WorkflowAction getAction() {
 		return action;
@@ -23,13 +27,6 @@ public class WorkflowNode {
 		this.action = action;
 	}
 
-	public NodePosition getNodePosition() {
-		return nodePosition;
-	}
-
-	public void setNodePosition(NodePosition nodePosition) {
-		this.nodePosition = nodePosition;
-	}
 
 	public NodeType getType() {
 		return type;
@@ -47,13 +44,40 @@ public class WorkflowNode {
 		this.nodeId = nodeId;
 	}
 
-	public Map<ExitType, WorkflowNode> getNextNodes() {
+	public String getNodeDescription() {
+		return nodeDescription;
+	}
+
+	public void setNodeDescription(String nodeDescription) {
+		this.nodeDescription = nodeDescription;
+	}
+
+	public NodePosition getPosition() {
+		return position;
+	}
+
+	public void setPosition(NodePosition position) {
+		this.position = position;
+	}
+
+	public Map<ExitType, String> getNextNodes() {
 		return nextNodes;
 	}
 
-	public void setNextNodes(Map<ExitType, WorkflowNode> nextNodes) {
+	public void setNextNodes(Map<ExitType, String> nextNodes) {
 		this.nextNodes = nextNodes;
 	}
+
+	public DecisionAction getDecisionTask() {
+		return decisionTask;
+	}
+
+	public void setDecisionTask(DecisionAction decisionTask) {
+		this.decisionTask = decisionTask;
+	}
+	
+	
+	
 	
 	
 
