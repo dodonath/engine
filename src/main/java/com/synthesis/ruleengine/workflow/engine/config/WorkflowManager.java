@@ -28,10 +28,11 @@ public class WorkflowManager {
 	
 	private ConcurrentHashMap<String,Workflow> workflows = new ConcurrentHashMap<>();
 
-	public final void executeWorkflow(String flowId,Map<String,Object> initialRequest) {
+	public final String executeWorkflow(String flowId,Map<String,Object> initialRequest) {
 
 		Workflow workflow = workflows.get(flowId);
 		workflow.executeWorkflow(initialRequest);
+		return Thread.currentThread().getName();
 	}
 	
 	

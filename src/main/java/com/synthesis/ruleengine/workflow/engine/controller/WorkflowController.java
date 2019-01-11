@@ -23,12 +23,11 @@ public class WorkflowController {
 
 	@CrossOrigin
 	@RequestMapping(value = "/runWorkflow/{workflowId}",  method = RequestMethod.GET)
-	public ResponseEntity<String> fetchProgressChart(
+	public ResponseEntity<String> runWorkflow(
 			HttpServletRequest httpServletRequest,
 			@PathVariable(required= true,value="workflowId") String workflowId ) 
 	{
-		workflowMgr.executeWorkflow(workflowId, null);
-		return new ResponseEntity<>("OK", HttpStatus.OK);
+		return new ResponseEntity<>(workflowMgr.executeWorkflow(workflowId, null), HttpStatus.OK);
 	}
 
 }
