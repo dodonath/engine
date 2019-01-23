@@ -20,6 +20,7 @@ create table WORKFLOW_INSTANCES_STATUS
    currentStep varchar(255),
    percentCompletion double not null,
    overAllStatus varchar(255),
+   errorStack text,
    startedAt bigint ,
    endedAt bigint ,
    active boolean not null,
