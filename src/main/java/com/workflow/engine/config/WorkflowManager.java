@@ -54,7 +54,7 @@ public class WorkflowManager {
 		flowThread.setName(threadInstanceCode);
 		workflowService.saveWorkflowInstanceStatus(flowThread,workflow);
 		flowThread.start();
-		return String.valueOf(flowThread.getId());
+		return String.valueOf(flowThread.getName());
 	}
 
 

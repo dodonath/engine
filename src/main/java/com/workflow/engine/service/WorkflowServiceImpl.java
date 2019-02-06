@@ -51,30 +51,31 @@ public class WorkflowServiceImpl implements WorkflowService {
 	{
 		List<WorkflowMaster> toBeSaved = new ArrayList<>();
 		Long timestamp = Instant.now().toEpochMilli();
-		Workflow temp = null;
+		Workflow dbTemp = null;
 		try
 		{
-			List<WorkflowMaster> flows = getAllflows();
-			if(flows!=null && !flows.isEmpty())
+			List<WorkflowMaster> dbData = getAllflows();
+			List<Workflow> xmlDataList = new ArrayList<>();
+
+			workflows.values().forEach(flow -> xmlDataList.add(flow));
+			if(dbData!=null && !dbData.isEmpty())
 			{
-				for(WorkflowMaster entry : flows)
+				for(WorkflowMaster entry : dbData)
 				{
-					temp = workflows.get(entry.getWorkflowCode());
-					if(temp!=null)
+					dbTemp = workflows.get(entry.getWorkflowCode());
+					if(dbTemp!=null)
 					{
-						checkAndUpdateValue(temp,entry,timestamp,toBeSaved);
-					}
-					else
-					{
-						toBeSaved.add(populateIndividual(temp,timestamp));
+						xmlDataList.remove(dbTemp);
+						checkAndUpdateValue(dbTemp,entry,timestamp,toBeSaved);
 					}
 				}
+				xmlDataList.parallelStream().forEach(entry -> toBeSaved.add(populateIndividual(entry,timestamp)));
 			}
 			else
 			{
 				workflows.entrySet().parallelStream().forEach(entry -> toBeSaved.add(populateIndividual(entry.getValue(),timestamp)));
 			}
-			Optional.ofNullable(toBeSaved).ifPresent(values -> values.stream().forEach(value -> {
+			Optional.ofNullable(toBeSaved).ifPresent(values -> values.forEach(value -> {
 				workflowRepository.saveAndFlush(value);
 			}));
 		}
